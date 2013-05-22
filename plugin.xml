@@ -10,7 +10,7 @@
       <view
             category="dk.rohdef.eclipse.buster.bustercategory"
             class="dk.rohdef.eclipse.buster.views.BusterJSView"
-            icon="icons/suite.gif"
+            icon="icons/test-success.png"
             id="dk.rohdef.eclipse.buster.busterjsview"
             name="BusterJS">
       </view>

@@ -1,5 +1,7 @@
 package dk.rohdef.eclipse.buster.models;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 public class TestCase {
 	private String name, className;
 	private double time;
@@ -14,6 +16,7 @@ public class TestCase {
 		this.time = time;
 	}
 	
+	@XmlAttribute
 	public String getName() {
 		return name;
 	}
