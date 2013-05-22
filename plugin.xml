@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="dk.rohdef.eclipse.buster.bustercategory"
+            name="rohdef">
+      </category>
+      <view
+            category="dk.rohdef.eclipse.buster.bustercategory"
+            class="dk.rohdef.eclipse.buster.views.BusterJSView"
+            icon="icons/suite.gif"
+            id="dk.rohdef.eclipse.buster.busterjsview"
+            name="BusterJS">
+      </view>
+   </extension>
+
+
+</plugin>
