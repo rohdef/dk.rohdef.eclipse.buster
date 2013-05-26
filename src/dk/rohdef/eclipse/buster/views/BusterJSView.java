@@ -1,5 +1,6 @@
 package dk.rohdef.eclipse.buster.views;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -11,6 +12,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 import dk.rohdef.eclipse.buster.models.MockModel;
@@ -50,27 +52,25 @@ public class BusterJSView extends ViewPart {
 	}
 
 	private void createStatusTexts(Composite parent) {
-		RGB resultColor = new RGB(200, 200, 200);
-		
 		Composite statusTexts = new Composite(parent, SWT.NONE);
 		statusTexts.setLayout(new RowLayout(SWT.HORIZONTAL));
+		
 		Label text = new Label(statusTexts, SWT.NONE);
 		text.setText("Runs: ");
-		text = new Label(statusTexts, SWT.NONE);
-		text.setText("0/0");
-		text.setBackground(resourceManager.createColor(resultColor));
+		Text runsText = new Text(statusTexts, SWT.BORDER);
+		runsText.setText("0/0");
 		
 		text = new Label(statusTexts, SWT.NONE);
 		text.setText("Errors: ");
-		text = new Label(statusTexts, SWT.NONE);
-		text.setText("0");
-		text.setBackground(resourceManager.createColor(resultColor));
+		Text errorsText = new Text(statusTexts, SWT.BORDER);
+		errorsText.setText("0");
 		
 		text = new Label(statusTexts, SWT.NONE);
 		text.setText("Failures: ");
-		text = new Label(statusTexts, SWT.NONE);
-		text.setText("0");
-		text.setBackground(resourceManager.createColor(resultColor));
+		Text failuresText = new Text(statusTexts, SWT.BORDER);
+		failuresText.setText("0");
+		
+		DataBindingContext ctx;
 	}
 
 	@Override
