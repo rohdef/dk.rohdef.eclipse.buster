@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
 import dk.rohdef.eclipse.buster.models.MockModel;
+import dk.rohdef.eclipse.buster.views.providers.StatusTextProvider;
 import dk.rohdef.eclipse.buster.views.providers.TestSuiteContentProvider;
 import dk.rohdef.eclipse.buster.views.providers.TestSuiteLabelProvider;
 
@@ -27,6 +28,7 @@ public class BusterJSView extends ViewPart {
 
 		resourceManager = new LocalResourceManager(JFaceResources.getResources(), parent);
 		statusTexts = new StatusTexts(parent, SWT.NONE);
+		statusTexts.setContentProvider(new StatusTextProvider());
 		
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new TestSuiteContentProvider());
