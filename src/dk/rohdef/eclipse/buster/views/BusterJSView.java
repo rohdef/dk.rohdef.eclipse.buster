@@ -1,6 +1,5 @@
 package dk.rohdef.eclipse.buster.views;
 
-import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.resource.LocalResourceManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -8,7 +7,6 @@ import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
@@ -69,8 +67,6 @@ public class BusterJSView extends ViewPart {
 		text.setText("Failures: ");
 		Text failuresText = new Text(statusTexts, SWT.BORDER);
 		failuresText.setText("0");
-		
-		DataBindingContext ctx;
 	}
 
 	@Override

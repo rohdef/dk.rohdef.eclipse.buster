@@ -7,40 +7,22 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
 
 public class MockModel {
-	public List<TestSuite> getSuites(String xml) {
-		List<TestSuite> suites = new ArrayList<>();
+	public RootTestSuite getSuite(String xml) {
+		RootTestSuite suite = null;
 		
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(RootTestSuite.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			
-			RootTestSuite suite = (RootTestSuite) jaxbUnmarshaller.unmarshal(new StringReader(xml));
-			suites = suite.getSuites();
+			suite = (RootTestSuite) jaxbUnmarshaller.unmarshal(new StringReader(xml));
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return suites;
-	}
-	
-	@XmlRootElement(name="testsuites")
-	static class RootTestSuite {
-		List<TestSuite> suites;
-
-		@XmlElement(name="testsuite")
-		public List<TestSuite> getSuites() {
-			return suites;
-		}
-
-		public void setSuites(List<TestSuite> suites) {
-			this.suites = suites;
-		}
+		return suite;
 	}
 	
 	public List<TestSuite> getCategories() {
