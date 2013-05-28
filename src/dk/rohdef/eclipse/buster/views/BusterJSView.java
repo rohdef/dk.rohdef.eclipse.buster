@@ -9,8 +9,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 import dk.rohdef.eclipse.buster.models.MockModel;
@@ -20,15 +18,15 @@ import dk.rohdef.eclipse.buster.views.providers.TestSuiteLabelProvider;
 public class BusterJSView extends ViewPart {
 	private TreeViewer viewer;
 	private LocalResourceManager resourceManager;
+	private StatusTexts statusTexts;
 	
 	@Override
 	public void createPartControl(Composite parent) {
-		resourceManager = new LocalResourceManager(JFaceResources.getResources(), parent);
-		
 		RowLayout layout = new RowLayout(SWT.VERTICAL);
 		parent.setLayout(layout);
-		
-		createStatusTexts(parent);
+
+		resourceManager = new LocalResourceManager(JFaceResources.getResources(), parent);
+		statusTexts = new StatusTexts(parent, SWT.NONE);
 		
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new TestSuiteContentProvider());
@@ -47,26 +45,6 @@ public class BusterJSView extends ViewPart {
 				viewer.setExpandedState(selectNode, !viewer.getExpandedState(selectNode));
 			}
 		});
-	}
-
-	private void createStatusTexts(Composite parent) {
-		Composite statusTexts = new Composite(parent, SWT.NONE);
-		statusTexts.setLayout(new RowLayout(SWT.HORIZONTAL));
-		
-		Label text = new Label(statusTexts, SWT.NONE);
-		text.setText("Runs: ");
-		Text runsText = new Text(statusTexts, SWT.BORDER);
-		runsText.setText("0/0");
-		
-		text = new Label(statusTexts, SWT.NONE);
-		text.setText("Errors: ");
-		Text errorsText = new Text(statusTexts, SWT.BORDER);
-		errorsText.setText("0");
-		
-		text = new Label(statusTexts, SWT.NONE);
-		text.setText("Failures: ");
-		Text failuresText = new Text(statusTexts, SWT.BORDER);
-		failuresText.setText("0");
 	}
 
 	@Override
