@@ -21,15 +21,15 @@ public class TestSuiteContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		System.out.println(model.getCategories().size());
 		return model.getCategories().toArray();
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof TestSuite) {
+		if (parentElement instanceof RootTestSuite)
+			return ((RootTestSuite) parentElement).getSuites().toArray();
+		if (parentElement instanceof TestSuite)
 			return ((TestSuite) parentElement).getTestCases().toArray();
-		}
 		
 		return null;
 	}

@@ -22,6 +22,53 @@ public class TestCase {
 		this.failure = failure;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((className == null) ? 0 : className.hashCode());
+		result = prime * result + ((failure == null) ? 0 : failure.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(time);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TestCase other = (TestCase) obj;
+		if (className == null) {
+			if (other.className != null)
+				return false;
+		} else if (!className.equals(other.className))
+			return false;
+		if (failure == null) {
+			if (other.failure != null)
+				return false;
+		} else if (!failure.equals(other.failure))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (Double.doubleToLongBits(time) != Double
+				.doubleToLongBits(other.time))
+			return false;
+		return true;
+	}
+	@Override
+	public String toString() {
+		return "\tTestCase [failure=" + failure + "]";
+	}
+	
 	@XmlAttribute
 	public String getName() {
 		return name;
