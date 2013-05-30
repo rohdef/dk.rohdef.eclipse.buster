@@ -1,5 +1,6 @@
 package dk.rohdef.eclipse.buster.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -9,6 +10,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RootTestSuite {
 	private List<TestSuite> suites;
 	private int tests = -1, errors = -1, failures = -1;
+	
+	public RootTestSuite() {
+		suites = new ArrayList<>();
+	}
 
 	@XmlElement(name="testsuite")
 	public List<TestSuite> getSuites() {

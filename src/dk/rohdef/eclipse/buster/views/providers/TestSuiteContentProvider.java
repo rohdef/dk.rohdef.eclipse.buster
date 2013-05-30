@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import dk.rohdef.eclipse.buster.models.MockModel;
+import dk.rohdef.eclipse.buster.models.RootTestSuite;
 import dk.rohdef.eclipse.buster.models.TestSuite;
 
 public class TestSuiteContentProvider implements ITreeContentProvider {
@@ -40,7 +41,17 @@ public class TestSuiteContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(Object element) {
-		return true;
+		if (element instanceof RootTestSuite) {
+			RootTestSuite rootSuite = (RootTestSuite)element; 
+			int suitesCount = rootSuite.getSuites().size();
+			return suitesCount>0;
+		} else if (element instanceof TestSuite) {
+			TestSuite testSuite = (TestSuite) element;
+			int caseCount = testSuite.getTestCases().size();
+			return caseCount>0;
+		}
+		
+		return false;
 	}
 
 }
