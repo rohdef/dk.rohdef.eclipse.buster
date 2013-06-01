@@ -2,7 +2,6 @@ package dk.rohdef.eclipse.buster.views.providers;
 
 import java.net.URL;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -12,19 +11,39 @@ import org.osgi.framework.FrameworkUtil;
 
 import dk.rohdef.eclipse.buster.models.TestCase;
 import dk.rohdef.eclipse.buster.models.TestSuite;
+import dk.rohdef.eclipse.buster.wrappers.FileLocatorWrapper;
+import dk.rohdef.eclipse.buster.wrappers.IFileLocatorWrapper;
 
 public class TestSuiteLabelProvider extends LabelProvider {
-	private static final Image SUITE = getImage("suite.png");
-	private static final Image CASE = getImage("case.png");
+	private final Image SUITE;
+	private final Image SUCCESS;
+	private final Image FAILURE;
+	private IFileLocatorWrapper fileLocator;
+	
+	public TestSuiteLabelProvider() {
+		this(new FileLocatorWrapper());
+	}
+	
+	/**
+	 * This constructor is mostly for testing purposes
+	 * @param fileLocator
+	 */
+	public TestSuiteLabelProvider(IFileLocatorWrapper fileLocator) {
+		this.fileLocator = fileLocator;
+		
+		SUITE = getImage("suite.png");
+		SUCCESS = getImage("test-success.png");
+		FAILURE = getImage("test-fail.png");
+	}
 	
 	@Override
 	public String getText(Object element) {
 		if (element instanceof TestSuite) {
 			TestSuite tsuite = (TestSuite) element;
-			return tsuite.getName() + " (" + tsuite.getTime() + "s)";
+			return tsuite.getName() + " (" + tsuite.getTime() + " s)";
 		} else if (element instanceof TestCase) {
 			TestCase tcase = (TestCase) element; 
-			return tcase.getName() + "(" + tcase.getTime() + "s)";
+			return tcase.getName() + " (" + tcase.getTime() + " s)";
 		}
 		
 		return "Error parsing";
@@ -35,13 +54,18 @@ public class TestSuiteLabelProvider extends LabelProvider {
 		if (element instanceof TestSuite) {
 			return SUITE;
 		}
+		if (element instanceof TestCase) {
+			if (((TestCase) element).getFailure() == null)
+				return SUCCESS;
+			return FAILURE;
+		}
 		
-		return CASE;
+		return null;
 	}
 	
-	private static Image getImage(String file) {
+	private Image getImage(String file) {
 		Bundle bundle = FrameworkUtil.getBundle(TestSuiteLabelProvider.class);
-		URL url = FileLocator.find(bundle, new Path("icons/" + file), null);
+		URL url = fileLocator.find(bundle, new Path("icons/" + file), null);
 		ImageDescriptor image = ImageDescriptor.createFromURL(url);
 		return image.createImage();
 	}
